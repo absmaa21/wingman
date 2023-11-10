@@ -2,8 +2,6 @@ import {Text, View} from "react-native";
 import { Colors } from "../userSettings";
 
 const TemporaryScreen = () => {
-    console.log("Loading TemporaryScreen");
-
     return(
         <View style={{backgroundColor: Colors.backgroundPrimary, flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text style={{color: Colors.textPrimary}}>This is a Temporary Screen.</Text>

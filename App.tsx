@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import TemporaryScreen from "./frontend/TemporaryScreen";
 import BottomBarNavigation from "./frontend/components/BottomBarNavigation";
+import HomeScreen from "./frontend/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,7 +36,7 @@ function Splash({ navigation }) {
 function Main() {
     return (
             <Tab.Navigator tabBar={(props) => <BottomBarNavigation {...props} />} >
-                <Tab.Screen name={'Home'} component={TemporaryScreen} />
+                <Tab.Screen name={'Home'} component={HomeScreen} options={{headerShown: false}} />
                 <Tab.Screen name={'Collection'} component={TemporaryScreen} />
                 <Tab.Screen name={'Profile'} component={TemporaryScreen} />
                 <Tab.Screen name={'Store'} component={TemporaryScreen} />
