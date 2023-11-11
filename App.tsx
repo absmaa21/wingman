@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
-    Image,
+    Animated, Easing, StatusBar,
     StyleSheet,
     View,
 } from 'react-native';
@@ -9,16 +9,47 @@ import { Colors } from './userSettings';
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import changeNavigationBarColor from "react-native-navigation-bar-color";
+
 import TemporaryScreen from "./frontend/TemporaryScreen";
 import BottomBarNavigation from "./frontend/components/BottomBarNavigation";
 import HomeScreen from "./frontend/HomeScreen";
+import ProfileScreen from "./frontend/ProfileScreen";
+import StoreScreen from "./frontend/StoreScreen";
+import CollectionScreen from "./frontend/CollectionScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // @ts-ignore
 function Splash({ navigation }) {
+    const fadeAnim = useRef(new Animated.Value(1)).current;
+
+    const fadeInOut = () => {
+        Animated.sequence([
+            Animated.timing(fadeAnim, {
+                toValue: 0.5,
+                duration: 1000,
+                easing: Easing.linear,
+                useNativeDriver: false,
+            }),
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 1000,
+                easing: Easing.linear,
+                useNativeDriver: false,
+            }),
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 500,
+                easing: Easing.linear,
+                useNativeDriver: false,
+            }),
+        ]).start(() => fadeInOut());
+    };
+
     useEffect(() => {
+        fadeInOut();
         const timer = setTimeout(() => {
             navigation.navigate('Main')
         }, 5000);
@@ -28,25 +59,29 @@ function Splash({ navigation }) {
 
     return (
         <View style={styles.splashContainer}>
-            <Image style={styles.splashImage} source={require("./assets/icon.png")} resizeMode={'contain'} />
+            <Animated.Image style={[styles.splashImage, { opacity: fadeAnim }]} source={require("./assets/icon.png")} resizeMode={'contain'} />
         </View>
     );
 }
 
 function Main() {
+    changeNavigationBarColor(Colors.backgroundThird);
+
     return (
             <Tab.Navigator tabBar={(props) => <BottomBarNavigation {...props} />} >
                 <Tab.Screen name={'Home'} component={HomeScreen} options={{headerShown: false}} />
-                <Tab.Screen name={'Collection'} component={TemporaryScreen} />
-                <Tab.Screen name={'Profile'} component={TemporaryScreen} />
-                <Tab.Screen name={'Store'} component={TemporaryScreen} />
-                <Tab.Screen name={'Other'} component={TemporaryScreen} />
+                <Tab.Screen name={'Collection'} component={CollectionScreen} options={{headerShown: false}} />
+                <Tab.Screen name={'Profile'} component={ProfileScreen} options={{headerShown: false}} />
+                <Tab.Screen name={'Store'} component={StoreScreen} options={{headerShown: false}} />
+                <Tab.Screen name={'Other'} component={TemporaryScreen} options={{headerShown: false}} />
             </Tab.Navigator>
     );
 }
 
 function App(): JSX.Element {
-  console.log("App reloaded");
+  console.log("App Loaded");
+  StatusBar.setBackgroundColor(Colors.backgroundPrimary);
+  changeNavigationBarColor(Colors.backgroundPrimary);
 
   return (
       <NavigationContainer>

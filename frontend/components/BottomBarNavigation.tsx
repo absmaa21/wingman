@@ -16,7 +16,7 @@ export default function BottomBarNavigation({ navigation }) {
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={() => handlePagePress('Home')}>
-                <MaterialCommunityIcons name={'home'} size={32} color={activeTab === 'Home' ? Colors.accent : Colors.textPrimary} />
+                <MaterialCommunityIcons name={'home'} size={36} color={activeTab === 'Home' ? Colors.accent : Colors.textPrimary} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={() => handlePagePress('Collection')}>
                 <MaterialCommunityIcons name={'bag-personal'} size={32} color={activeTab === 'Collection' ? Colors.accent : Colors.textPrimary} />

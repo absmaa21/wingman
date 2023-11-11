@@ -95,6 +95,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 6,
         paddingLeft: 6,
         paddingRight: 6,
         backgroundColor: Colors.backgroundPrimary,
@@ -161,6 +162,7 @@ const styles = StyleSheet.create({
         color: Colors.textPrimary,
     },
     playerTag: {
+        fontSize: 13,
         color: Colors.textFourth,
     },
     dailyImage: {
