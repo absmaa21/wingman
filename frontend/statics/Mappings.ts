@@ -130,5 +130,4 @@ const weeklyXpPerMission = {
     '9': 20250,
 }
 
-
 export { dailyImageMapping, contentTier, levelImage, weaponInfo, weeklyXpPerMission }

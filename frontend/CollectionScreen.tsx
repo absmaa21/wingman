@@ -183,10 +183,6 @@ export default function CollectionScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Collection</Text>
-                <Text style={styles.headerDetails}>Change your skins or create presets to change your whole collection with one click.</Text>
-            </View>
             <TouchableOpacity style={styles.presetsButton} onPress={() => console.log('Presets Button pressed')} >
                 <Text style={styles.presetsText}>Presets</Text>
             </TouchableOpacity>
@@ -226,25 +222,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.backgroundPrimary,
     },
 
-    headerContainer: {
-        paddingHorizontal: 12,
-        marginBottom: 8,
-    },
-    headerText: {
-        fontSize: 28,
-        fontWeight: '600',
-        textAlign: 'center',
-        color: Colors.textPrimary,
-    },
-    headerDetails: {
-        fontSize: 14,
-        fontWeight: '300',
-        textAlign: 'center',
-        color: Colors.textSecondary,
-    },
-
     presetsButton: {
         padding: 8,
+        marginTop: 8,
         marginBottom: 12,
         borderRadius: 12,
         backgroundColor: Colors.accent,

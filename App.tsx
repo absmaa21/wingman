@@ -11,12 +11,13 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import changeNavigationBarColor from "react-native-navigation-bar-color";
 
-import TemporaryScreen from "./frontend/TemporaryScreen";
 import BottomBarNavigation from "./frontend/components/BottomBarNavigation";
 import HomeScreen from "./frontend/HomeScreen";
 import ProfileScreen from "./frontend/ProfileScreen";
 import StoreScreen from "./frontend/StoreScreen";
 import CollectionScreen from "./frontend/CollectionScreen";
+import LoginScreen from "./frontend/LoginScreen";
+import OthersScreen from "./frontend/OthersScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,10 +49,12 @@ function Splash({ navigation }) {
         ]).start(() => fadeInOut());
     };
 
+    const isLoggedIn = true;
+
     useEffect(() => {
         fadeInOut();
         const timer = setTimeout(() => {
-            navigation.navigate('Main')
+            isLoggedIn ? navigation.navigate('Main') : navigation.navigate('Login');
         }, 5000);
 
         return () => clearTimeout(timer);
@@ -68,13 +71,13 @@ function Main() {
     changeNavigationBarColor(Colors.backgroundThird);
 
     return (
-            <Tab.Navigator tabBar={(props) => <BottomBarNavigation {...props} />} >
-                <Tab.Screen name={'Home'} component={HomeScreen} options={{headerShown: false}} />
-                <Tab.Screen name={'Collection'} component={CollectionScreen} options={{headerShown: false}} />
-                <Tab.Screen name={'Profile'} component={ProfileScreen} options={{headerShown: false}} />
-                <Tab.Screen name={'Store'} component={StoreScreen} options={{headerShown: false}} />
-                <Tab.Screen name={'Other'} component={TemporaryScreen} options={{headerShown: false}} />
-            </Tab.Navigator>
+        <Tab.Navigator tabBar={(props) => <BottomBarNavigation {...props} />} >
+            <Tab.Screen name={'Home'} component={HomeScreen} options={{headerShown: false}} />
+            <Tab.Screen name={'Collection'} component={CollectionScreen} options={{headerShown: false}} />
+            <Tab.Screen name={'Profile'} component={ProfileScreen} options={{headerShown: false}} />
+            <Tab.Screen name={'Store'} component={StoreScreen} options={{headerShown: false}} />
+            <Tab.Screen name={'Other'} component={OthersScreen} options={{headerShown: false}} />
+        </Tab.Navigator>
     );
 }
 
@@ -87,6 +90,7 @@ function App(): JSX.Element {
       <NavigationContainer>
         <Stack.Navigator initialRouteName={'Splash'}  >
             <Stack.Screen name={'Splash'} component={Splash} options={{headerShown: false}} />
+            <Stack.Screen name={'Login'} component={LoginScreen} options={{headerShown: false}} />
             <Stack.Screen name={'Main'} component={Main} options={{headerShown: false}} />
         </Stack.Navigator>
       </NavigationContainer>
