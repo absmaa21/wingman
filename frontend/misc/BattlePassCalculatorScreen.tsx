@@ -3,9 +3,10 @@ import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "r
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../../userSettings";
 import {useFocusEffect} from "@react-navigation/native";
+import {Slider} from "@miblanchard/react-native-slider";
 
 export default function BattlePassCalculatorScreen({ navigation }: any) {
-    const [currentLevel, setCurrentLevel] = useState(2);
+    const [currentLevel, setCurrentLevel] = useState(34);
     const [remainingXP, setRemainingXP] = useState(10000);
     const [currentWeek, setCurrentWeek] = useState(2);
     const [levelGoal, setLevelGoal] = useState(55);
@@ -34,28 +35,29 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
     }
     function fullRemainingXp() {
         let xp = 0;
-        for(let i = currentLevel; i <= levelGoal; i++) {
+        for(let i = currentLevel+1; i <= levelGoal; i++) {
             xp += remainingXpForLevel(i);
         }
+        xp += remainingXP;
         return xp;
     }
 
     return(
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Battle Pass Calculator</Text>
-                <Text style={styles.headerDetails}>Calculate how long u need to play to reach your desired level.</Text>
-                <TouchableOpacity
-                    style={styles.backBtn}
-                    onPress={() => navigation.navigate('Main')}
-                >
-                    <MaterialCommunityIcons name={'logout'} size={24} color={Colors.textFourth} />
-                </TouchableOpacity>
-            </View>
-
             <View style={styles.contentContainer}>
                 <Text style={styles.currentLevel}>Current Level: {currentLevel}</Text>
-                <View style={styles.row}>
+                <View style={styles.sliderContainer}>
+                    <Slider
+                        minimumValue={currentLevel}
+                        maximumValue={55}
+                        step={1}
+                        value={levelGoal}
+                        onValueChange={(value) => setLevelGoal(value[0])}
+                        maximumTrackTintColor={Colors.backgroundPrimary}
+                        minimumTrackTintColor={Colors.accent}
+                        thumbTintColor={'#0000'}
+                        trackStyle={styles.slider}
+                    />
                     <Text style={styles.levelGoalText}>Tier Goal</Text>
                     <TextInput
                         style={styles.levelGoalInput}
@@ -65,7 +67,18 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
                         selectionColor={Colors.textPrimary}
                     />
                 </View>
-                <View style={styles.row}>
+                <View style={styles.sliderContainer}>
+                    <Slider
+                        minimumValue={1}
+                        maximumValue={remainingXpForLevel(currentLevel)}
+                        step={1}
+                        value={remainingXP}
+                        onValueChange={(value) => handleRemainingXpChange(value[0].toString())}
+                        maximumTrackTintColor={Colors.backgroundPrimary}
+                        minimumTrackTintColor={Colors.accent}
+                        thumbTintColor={'#0000'}
+                        trackStyle={styles.slider}
+                    />
                     <Text style={styles.levelGoalText}>XP Remaining</Text>
                     <TextInput
                         style={styles.levelGoalInput}
@@ -141,27 +154,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
         backgroundColor: Colors.backgroundPrimary,
     },
-    headerContainer: {
-        paddingHorizontal: 12,
-        marginBottom: 8,
-    },
-    headerText: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: Colors.textPrimary,
-    },
-    headerDetails: {
-        fontSize: 14,
-        fontWeight: '400',
-        textAlign: 'center',
-        color: Colors.textSecondary,
-    },
-    backBtn: {
-        position: 'absolute',
-        right: 16,
-        top: 8,
-    },
 
     contentContainer: {
         marginTop: 8,
@@ -181,26 +173,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
+    sliderContainer: {
+        marginVertical: 4,
+    },
     levelGoalText: {
-        flex: 1,
-        height: '100%',
+        position: 'absolute',
         fontSize: 16,
         fontWeight: 'bold',
-        padding: 12,
         color: Colors.textPrimary,
-        backgroundColor: Colors.accent,
-        borderTopLeftRadius: 12,
-        borderBottomLeftRadius: 12,
+        left: 8,
+        top: 8,
     },
     levelGoalInput: {
-        flex: 1,
-        height: '100%',
-        textAlign: 'right',
-        paddingRight: 16,
+        position: 'absolute',
         color: Colors.textPrimary,
-        backgroundColor: Colors.backgroundPrimary,
-        borderTopRightRadius: 12,
-        borderBottomRightRadius: 12,
+        right: 8,
+        top: -4,
+    },
+    slider: {
+        height: 48,
+        borderRadius: 12,
     },
     xpBoost: {
         fontSize: 16,
@@ -212,6 +204,7 @@ const styles = StyleSheet.create({
 
     button: {
         flex: 1,
+        height: 48,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 12,

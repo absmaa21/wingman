@@ -1,20 +1,28 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {NavigationContainer, useNavigation} from "@react-navigation/native";
-import {Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {NavigationContainer} from "@react-navigation/native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../userSettings";
 import BattlePassCalculatorScreen from "./misc/BattlePassCalculatorScreen";
+import CollectionScreen from "./misc/CollectionScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function OthersScreen() {
     return(
         <NavigationContainer independent={true}>
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName={'Main'} screenOptions={{
+                headerBackButtonMenuEnabled: true,
+                headerStyle: {backgroundColor: Colors.backgroundPrimary},
+                headerShadowVisible: false,
+                headerTintColor: Colors.textPrimary,
+                headerTitleAlign: 'center'
+            }} >
                 <Stack.Screen name={'Main'} component={Main} options={{headerShown: false}} />
-                <Stack.Screen name={'BattlePassCalculator'} component={BattlePassCalculatorScreen} options={{headerShown: false}} />
-                <Stack.Screen name={'StoreAlert'} component={Main} options={{headerShown: false}} />
-                <Stack.Screen name={'Settings'} component={Main} options={{headerShown: false}} />
+                <Stack.Screen name={'Collection'} component={CollectionScreen} />
+                <Stack.Screen name={'BattlePassCalculator'} component={BattlePassCalculatorScreen} options={{headerTitle: 'Battle Pass Calculator'}} />
+                <Stack.Screen name={'StoreAlert'} component={Main} options={{headerTitle: 'Store Alert'}} />
+                <Stack.Screen name={'Settings'} component={Main} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -23,6 +31,10 @@ export default function OthersScreen() {
 function Main({ navigation }: any) {
     return(
         <ScrollView contentContainerStyle={styles.container}>
+            <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('Collection')} >
+                <MaterialCommunityIcons name={'bag-personal'} size={96} color={Colors.textPrimary} />
+                <Text style={styles.header}>Collection</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.card} onPress={() => navigation.navigate('BattlePassCalculator')} >
                 <MaterialCommunityIcons name={'calculator'} size={96} color={Colors.textPrimary} />
                 <Text style={styles.header}>BP Calculator</Text>
@@ -58,6 +70,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center',
+        elevation: 4,
         backgroundColor: Colors.backgroundSecondary,
     },
     header: {

@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import Colors from "../userSettings";
-import CollectionCard from "./components/CollectionCard";
-import {weaponInfo} from "./statics/Mappings";
+import Colors from "../../userSettings";
+import CollectionCard from "../components/CollectionCard";
+import {weaponInfo} from "../statics/Mappings";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const tempPlayerLoadout = [
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 12,
         borderRadius: 12,
+        elevation: 4,
         backgroundColor: Colors.accent,
     },
     presetsText: {

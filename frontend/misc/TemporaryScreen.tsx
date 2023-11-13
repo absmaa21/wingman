@@ -1,5 +1,5 @@
 import {Text, View} from "react-native";
-import { Colors } from "../userSettings";
+import { Colors } from "../../userSettings";
 
 const TemporaryScreen = () => {
     return(

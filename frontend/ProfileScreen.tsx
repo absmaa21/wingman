@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Alert, Dimensions, Image, Linking, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Dimensions, Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Colors from "../userSettings";
 import { levelImage } from "./statics/Mappings";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -69,7 +69,7 @@ export default function ProfileScreen() {
     const profileImageHeight = profileImageWidth * (128 / 452);
 
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             {profileData && (
                 <View style={styles.playerStatsContainer}>
                     {showPlayerStats && (
@@ -147,7 +147,7 @@ export default function ProfileScreen() {
                     )}
                 </View>
             )}
-        </View>
+        </ScrollView>
     );
 }
 

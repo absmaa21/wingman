@@ -18,8 +18,8 @@ export default function BottomBarNavigation({ navigation }) {
             <TouchableOpacity style={styles.button} onPress={() => handlePagePress('Home')}>
                 <MaterialCommunityIcons name={'home'} size={36} color={activeTab === 'Home' ? Colors.accent : Colors.textPrimary} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => handlePagePress('Collection')}>
-                <MaterialCommunityIcons name={'bag-personal'} size={32} color={activeTab === 'Collection' ? Colors.accent : Colors.textPrimary} />
+            <TouchableOpacity style={styles.button} onPress={() => handlePagePress('FavouritePage')}>
+                <MaterialCommunityIcons name={'bag-personal'} size={32} color={activeTab === 'FavouritePage' ? Colors.accent : Colors.textPrimary} />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.fabButton} onPress={() => handlePagePress('Profile')}>

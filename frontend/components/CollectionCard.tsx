@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     container: {
         gap: 8,
         padding: 8,
-        elevation: 3,
+        elevation: 4,
         borderRadius: 12,
         alignItems: 'center',
         backgroundColor: Colors.backgroundSecondary,

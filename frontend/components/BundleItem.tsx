@@ -4,7 +4,7 @@ import Colors from "../../userSettings";
 // @ts-ignore
 const BundleItem = ({item}) => {
     return(
-        <TouchableOpacity style={styles.container} onPress={() => console.log('Bundle clicked')} activeOpacity={.8} >
+        <TouchableOpacity style={styles.container} onPress={() => console.log(`Bundle clicked`)} activeOpacity={.8} >
             <Image
                 source={{ uri: `https://media.valorant-api.com/bundles/${item['DataAssetID']}/displayicon.png` }}
                 style={[styles.image, {width: Dimensions.get('window').width}]}

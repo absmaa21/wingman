@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
         marginBottom: 4,
         borderRadius: 4,
         borderTopLeftRadius: 12,
+        elevation: 4,
         backgroundColor: Colors.backgroundSecondary,
     },
     playerRankContainer: {
@@ -134,6 +135,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderTopRightRadius: 12,
         borderBottomRightRadius: 12,
+        elevation: 4,
         backgroundColor: Colors.backgroundSecondary,
     },
     playerStatsContainer: {
@@ -143,6 +145,7 @@ const styles = StyleSheet.create({
         padding: 6,
         borderRadius: 4,
         borderBottomLeftRadius: 12,
+        elevation: 4,
         backgroundColor: Colors.backgroundSecondary,
     },
     levelBox: {

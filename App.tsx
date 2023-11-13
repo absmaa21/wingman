@@ -15,7 +15,7 @@ import BottomBarNavigation from "./frontend/components/BottomBarNavigation";
 import HomeScreen from "./frontend/HomeScreen";
 import ProfileScreen from "./frontend/ProfileScreen";
 import StoreScreen from "./frontend/StoreScreen";
-import CollectionScreen from "./frontend/CollectionScreen";
+import CollectionScreen from "./frontend/misc/CollectionScreen";
 import LoginScreen from "./frontend/LoginScreen";
 import OthersScreen from "./frontend/OthersScreen";
 
@@ -73,7 +73,7 @@ function Main() {
     return (
         <Tab.Navigator tabBar={(props) => <BottomBarNavigation {...props} />} >
             <Tab.Screen name={'Home'} component={HomeScreen} options={{headerShown: false}} />
-            <Tab.Screen name={'Collection'} component={CollectionScreen} options={{headerShown: false}} />
+            <Tab.Screen name={'FavouritePage'} component={CollectionScreen} options={{headerShown: false}} />
             <Tab.Screen name={'Profile'} component={ProfileScreen} options={{headerShown: false}} />
             <Tab.Screen name={'Store'} component={StoreScreen} options={{headerShown: false}} />
             <Tab.Screen name={'Other'} component={OthersScreen} options={{headerShown: false}} />
