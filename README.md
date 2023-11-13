@@ -1,6 +1,6 @@
 ## Latest Release Notes
 
-### **v0.0.4 -11/11/2023**
-- Added LoginScreen.tsx : Logic for Login and MultiAuth is not implemented
-- Added OthersScreen.tsx : Navigation for more Screens
-- Added misc BattlePassCalculatorScreen.tsx : Results not finished yet
+### **v0.0.5 - 13/11/2023**
+- Updated *misc* BattlePassCalculatorScreen.tsx : Added sliders as inputs
+- Updated HomeScreen.tsx : changed the fundamental for making Favourite Screen
+- Updated some elements
