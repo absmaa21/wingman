@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Colors from "../../userSettings";
-import {useFocusEffect} from "@react-navigation/native";
 import {Slider} from "@miblanchard/react-native-slider";
+import {gamemodeInfo} from "../statics/Mappings";
 
 export default function BattlePassCalculatorScreen({ navigation }: any) {
-    const [currentLevel, setCurrentLevel] = useState(34);
     const [remainingXP, setRemainingXP] = useState(10000);
-    const [currentWeek, setCurrentWeek] = useState(2);
     const [levelGoal, setLevelGoal] = useState(55);
     const [xpBoost, setXpBoost] = useState(0);
+
+    const currentLevel = 34;
+    const currentWeek = 2;
+    const actEndDate = new Date(2024, 1, 8);
+    const remainingDays = actEndDate.getTime() - new Date().getTime();
 
     function handleLevelGoalChange(value:string) {
         const number = Number(value);
@@ -40,6 +42,17 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
         }
         xp += remainingXP;
         return xp;
+    }
+
+    function getHoursRemainingPerDay() {
+        const compMatchesPerDay = remainingXP / gamemodeInfo.competitive.avgXpPerMatch;
+        const minutesRemaining = compMatchesPerDay * gamemodeInfo.competitive.avgLengthInMin;
+        return minutesRemaining / 60 / remainingDays;
+    }
+
+    function getRemainingHoursFormatted() {
+        const remainingHours: number = getHoursRemainingPerDay();
+        return remainingHours.toFixed(0) + ':' + (remainingHours % 1 * 60).toString();
     }
 
     return(
@@ -121,27 +134,27 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Hours per Day</Text>
-                    <Text style={styles.resultText}>1:04</Text>
+                    <Text style={styles.resultText}>{getRemainingHoursFormatted()}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Competitive per Day</Text>
-                    <Text style={styles.resultText}>{3}</Text>
+                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo.competitive.avgXpPerMatch).toFixed(2)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Spike Rush per Day</Text>
-                    <Text style={styles.resultText}>8</Text>
+                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo['spike-rush'].avgXpPerMatch).toFixed(2)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>TDM per Day</Text>
-                    <Text style={styles.resultText}>7</Text>
+                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo['team-deathmatch'].avgXpPerMatch).toFixed(2)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Deathmatch per Day</Text>
-                    <Text style={styles.resultText}>7</Text>
+                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo['deathmatch'].avgXpPerMatch).toFixed(2)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Time Remaining</Text>
-                    <Text style={styles.resultText}>59 Days</Text>
+                    <Text style={styles.resultText}>{remainingDays} Days</Text>
                 </View>
             </View>
         </ScrollView>

@@ -130,4 +130,13 @@ const weeklyXpPerMission = {
     '9': 20250,
 }
 
-export { dailyImageMapping, contentTier, levelImage, weaponInfo, weeklyXpPerMission }
+const gamemodeInfo = {
+    'competitive': { 'avgLengthInMin': 35, 'avgXpPerMatch': 3600 },
+    'unranked': { 'avgLengthInMin': 35, 'avgXpPerMatch': 3600 },
+    'deathmatch': { 'avgLengthInMin': 8, 'avgXpPerMatch': 900 },
+    'team-deathmatch': { 'avgLengthInMin': 8, 'avgXpPerMatch': 1000 },
+    'spike-rush': { 'avgLengthInMin': 8, 'avgXpPerMatch': 1000 },
+    'swiftplay': { 'avgLengthInMin': 12, 'avgXpPerMatch': 1400 },
+}
+
+export { dailyImageMapping, contentTier, levelImage, weaponInfo, weeklyXpPerMission, gamemodeInfo }
