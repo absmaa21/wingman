@@ -1,5 +1,4 @@
 ## Latest Release Notes
 
-### **v0.0.6 - 15/11/2023**
-- Updated *statics* Mappings.ts : Added gamemodeInfo Map with avg Xp and Time spent per gamemmode
-- Updated *misc* BattlePassCalculatorScreen.tsx : Added Calculations for results
+### **v0.0.7 - 16/11/2023**
+- Updated *misc* BattlePassCalculatorScreen.tsx : Fixed Calculations - missions are not implemented

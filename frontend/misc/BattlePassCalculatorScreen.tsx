@@ -12,7 +12,7 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
     const currentLevel = 34;
     const currentWeek = 2;
     const actEndDate = new Date(2024, 1, 8);
-    const remainingDays = actEndDate.getTime() - new Date().getTime();
+    const remainingDays = (actEndDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24);
 
     function handleLevelGoalChange(value:string) {
         const number = Number(value);
@@ -44,15 +44,23 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
         return xp;
     }
 
+    function realRemainingXp() {
+        return fullRemainingXp() - fullRemainingXp() * (xpBoost / 100);
+    }
+
     function getHoursRemainingPerDay() {
-        const compMatchesPerDay = remainingXP / gamemodeInfo.competitive.avgXpPerMatch;
+        const compMatchesPerDay = realRemainingXp() / gamemodeInfo.competitive.avgXpPerMatch;
         const minutesRemaining = compMatchesPerDay * gamemodeInfo.competitive.avgLengthInMin;
-        return minutesRemaining / 60 / remainingDays;
+        return minutesRemaining / 60;
     }
 
     function getRemainingHoursFormatted() {
-        const remainingHours: number = getHoursRemainingPerDay();
-        return remainingHours.toFixed(0) + ':' + (remainingHours % 1 * 60).toString();
+        const remainingHours: number = getHoursRemainingPerDay() / remainingDays;
+        const hours = Math.floor(remainingHours);
+        const minutes = Math.round((remainingHours - hours) * 60);
+        const formattedHours = hours.toString().padStart(2, '0');
+        const formattedMinutes = minutes.toString().padStart(2, '0');
+        return formattedHours + ':' + formattedMinutes;
     }
 
     return(
@@ -138,23 +146,23 @@ export default function BattlePassCalculatorScreen({ navigation }: any) {
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Competitive per Day</Text>
-                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo.competitive.avgXpPerMatch).toFixed(2)}</Text>
+                    <Text style={styles.resultText}>{Math.floor((realRemainingXp() / remainingDays / gamemodeInfo.competitive.avgXpPerMatch)+1)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Spike Rush per Day</Text>
-                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo['spike-rush'].avgXpPerMatch).toFixed(2)}</Text>
+                    <Text style={styles.resultText}>{Math.floor((realRemainingXp() / remainingDays / gamemodeInfo['spike-rush'].avgXpPerMatch)+1)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>TDM per Day</Text>
-                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo['team-deathmatch'].avgXpPerMatch).toFixed(2)}</Text>
+                    <Text style={styles.resultText}>{Math.floor((realRemainingXp() / remainingDays / gamemodeInfo['team-deathmatch'].avgXpPerMatch)+1)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Deathmatch per Day</Text>
-                    <Text style={styles.resultText}>{(remainingXP / remainingDays / gamemodeInfo['deathmatch'].avgXpPerMatch).toFixed(2)}</Text>
+                    <Text style={styles.resultText}>{Math.floor((realRemainingXp() / remainingDays / gamemodeInfo['deathmatch'].avgXpPerMatch)+1)}</Text>
                 </View>
                 <View style={styles.resultRow}>
                     <Text style={styles.resultTitle}>Time Remaining</Text>
-                    <Text style={styles.resultText}>{remainingDays} Days</Text>
+                    <Text style={styles.resultText}>{remainingDays.toFixed(0)} Days</Text>
                 </View>
             </View>
         </ScrollView>
